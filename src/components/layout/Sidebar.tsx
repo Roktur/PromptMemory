@@ -19,6 +19,49 @@ import {
 } from "@/hooks/useModels";
 import { ROUTES } from "@/lib/constants";
 
+// ── Collapsible section header ───────────────────────────────────────────────
+function SectionHeader({
+  label, isOpen, onToggle, onAdd,
+}: { label: React.ReactNode; isOpen: boolean; onToggle: () => void; onAdd: () => void }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: isOpen ? 6 : 0 }}>
+      <button
+        type="button"
+        onClick={onToggle}
+        className="filter-btn"
+        style={{ flex: 1, minHeight: 48 }}
+      >
+        <span>{label}</span>
+        <span style={{ color: "var(--muted)", fontSize: "0.75rem", display: "inline-block", transition: "transform 0.2s", transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}>▾</span>
+      </button>
+      <button
+        type="button"
+        onClick={onAdd}
+        style={{ background: "transparent", border: "1px solid var(--border)", borderRadius: "var(--radius-sm)", color: "var(--muted)", cursor: "pointer", fontSize: "1rem", lineHeight: 1, padding: "2px 7px", flexShrink: 0, minHeight: 48, minWidth: 36 }}
+        title="Add"
+      >+</button>
+    </div>
+  );
+}
+
+function CollapseWrapper({ isOpen, children }: { isOpen: boolean; children: React.ReactNode }) {
+  return (
+    <AnimatePresence initial={false}>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.2 }}
+          style={{ overflow: "hidden" }}
+        >
+          {children}
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 const PRESET_COLORS = [
   "#8b5cf6","#3b82f6","#10b981","#f59e0b",
   "#ef4444","#ec4899","#06b6d4","#84cc16",
@@ -168,44 +211,6 @@ export function Sidebar() {
     if (activeModel === name) navigate("model", null);
   };
 
-  // ── Collapsible section header ───────────────────────────────────────────
-  const SectionHeader = ({
-    label, isOpen, onToggle, onAdd,
-  }: { label: React.ReactNode; isOpen: boolean; onToggle: () => void; onAdd: () => void }) => (
-    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: isOpen ? 6 : 0 }}>
-      <button
-        type="button"
-        onClick={onToggle}
-        className="filter-btn"
-        style={{ flex: 1, minHeight: 48 }}
-      >
-        <span>{label}</span>
-        <span style={{ color: "var(--muted)", fontSize: "0.75rem", display: "inline-block", transition: "transform 0.2s", transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}>▾</span>
-      </button>
-      <button
-        type="button"
-        onClick={onAdd}
-        style={{ background: "transparent", border: "1px solid var(--border)", borderRadius: "var(--radius-sm)", color: "var(--muted)", cursor: "pointer", fontSize: "1rem", lineHeight: 1, padding: "2px 7px", flexShrink: 0, minHeight: 48, minWidth: 36 }}
-        title="Add"
-      >+</button>
-    </div>
-  );
-
-  const CollapseWrapper = ({ isOpen, children }: { isOpen: boolean; children: React.ReactNode }) => (
-    <AnimatePresence initial={false}>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.2 }}
-          style={{ overflow: "hidden" }}
-        >
-          {children}
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
 
   return (
     <section
