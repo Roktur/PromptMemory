@@ -50,12 +50,12 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ error: "File not found on disk" }, { status: 404 });
   }
 
-  const mimeType =
+  const mimeType: string =
     variant === "original"
       ? (EXT_MIME[ext] ?? "application/octet-stream")
-      : VARIANT_MIME[variant];
+      : (VARIANT_MIME[variant] ?? "application/octet-stream");
 
-  return new NextResponse(new Uint8Array(fileBuffer), {
+  return new Response(new Uint8Array(fileBuffer), {
     headers: {
       "Content-Type": mimeType,
       "Cache-Control": "public, max-age=31536000, immutable",
