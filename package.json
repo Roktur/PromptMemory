@@ -1,0 +1,44 @@
+{
+  "name": "prompt-memory",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:migrate": "tsx src/lib/db/migrate.ts",
+    "db:seed": "tsx src/lib/db/seed.ts",
+    "db:reset": "tsx src/lib/db/seed.ts --reset"
+  },
+  "dependencies": {
+    "next": "15.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "better-sqlite3": "^11.9.1",
+    "sharp": "^0.33.5",
+    "ulid": "^2.3.0",
+    "@tanstack/react-query": "^5.75.5",
+    "@tanstack/react-virtual": "^3.13.6",
+    "framer-motion": "^12.7.3",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.2.0",
+    "lucide-react": "^0.503.0",
+    "react-hook-form": "^7.55.0",
+    "zod": "^3.24.2",
+    "@hookform/resolvers": "^5.0.1",
+    "date-fns": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/better-sqlite3": "^7.6.13",
+    "typescript": "^5",
+    "tailwindcss": "^4.1.4",
+    "@tailwindcss/postcss": "^4.1.4",
+    "tsx": "^4.19.3",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.0"
+  }
+}
