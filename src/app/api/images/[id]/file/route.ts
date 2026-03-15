@@ -55,7 +55,7 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
       ? (EXT_MIME[ext] ?? "application/octet-stream")
       : VARIANT_MIME[variant];
 
-  return new NextResponse(fileBuffer, {
+  return new NextResponse(new Uint8Array(fileBuffer), {
     headers: {
       "Content-Type": mimeType,
       "Cache-Control": "public, max-age=31536000, immutable",
